@@ -1,0 +1,4 @@
+title = "マリオ風のゲーム"
+description = "矢印キーで操作、enterで開始とリセット。ゴールが普通とはちがうばしょにある。"
+author = "azuki"
+game_exe_name = "mario!"

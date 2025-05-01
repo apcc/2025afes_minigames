@@ -1,0 +1,1320 @@
+//-------------------------------
+// ÉoÉgÉãÉIÉuÉuÉäÉeÉì
+//-------------------------------
+//--------------------------------------
+// ÉÅÉCÉìïî
+//--------------------------------------
+*Init
+	;âÊëúì«Ç›çûÇ›
+	celload "BB.bmp",1
+	celload "character.bmp",2
+	celload "1.bmp",3
+	celload "moon.bmp",4
+	celload "cloud.bmp",5
+	celload "a.bmp",6
+	celdiv 1,30,30
+	celdiv 2,30,30
+    ;ÉXÉRÉAÇÃä«óù
+    dim Score           ;åªç›ÉXÉRÉA
+    dim HiScore         ;ç≈çÇÉXÉRÉA
+    dim key
+    dim enemyc			;ìGã@ÇÃêî
+    ;í¨êiíª
+    dim city,16			;í¨ÇÃì‡óe
+    dim tower			;É^ÉèÅ[êiíª
+    dim cit,16
+    dim cityb,16		;í¨ÇÃîöî≠
+    ;ì‹ÇÃìÆÇ´
+    dim skyF,10			;â_ÇÃë∂ç›
+    dim skyX,10			;â_ÇÃâ°é≤
+    dim skyY,40			;â_ÇÃècé≤
+    dim skyB,40			;â_ÇÃå¸Ç´
+
+    ;ñØä‘êl
+    dim citizenF,40		;ñØä‘ÇÃë∂ç›
+    dim citizenX,40		;ñØä‘ÇÃâ°é≤
+    dim citizenY,40		;ñØä‘ÇÃècé≤
+    dim citizenA,40     ;ñØä‘ÇÃÉAÉjÉÅ
+    ;é©ã@ÇÃä«óù
+    ddim x               ;é©ã@ÇÃâ°é≤
+    ddim y				;é©ã@ÇÃècé≤
+    dim fight           ;é©ã@ÇÃécã@êî
+    dim blast           ;é©ã@ÇÃîöî≠ÉJÉEÉìÉ^
+    dim speed			;ÉXÉsÅ[Éh
+    dim mgan			;éÂñC
+    dim sgan			;ïõñC
+    dim sgans			;òAéÀ
+    dim inv				;ñ≥ìG
+    dim dem				;éÊÇËâÛÇµÉJÉEÉìÉ^Å[
+    dim cool			;ÉNÅ[ÉãÉ_ÉEÉì
+    dim demc			;éÊÇËâÛÇµÉNÅ[ÉãÉ_ÉEÉì
+    ;é©íeéÂñC
+    dim ftamaL,250		;é©íeÉåÉxÉã
+    dim ftamaF,250		;é©íeÉtÉâÉO
+    dim ftamaX,250		;é©íeâ°é≤
+    dim ftamaY,250		;é©íeècé≤
+    dim ftamaXacc,250	;é©íeâ°é≤â¡ë¨ìx
+    dim ftamaYacc,250	;é©íeècé≤â¡ë¨ìx
+    dim ftamaB,250		;é©ã@îöî≠ÉAÉjÉÅ
+    ;é©íeïõñC
+    dim ttamaL,400		;ïõñCÉåÉxÉã
+    dim ttamaF,400		;ïõñCÉtÉâÉO
+    dim ttamaX,400		;ïõñCâ°é≤
+    dim ttamaY,400		;ïõñCècé≤
+    dim ttamaXacc,400	;ïõñCâ°é≤â¡ë¨ìx
+    dim ttamaYacc,400	;ïõñCècé≤â¡ë¨ìx
+    dim ttamaB,250		;é©ã@îöî≠ÉAÉjÉÅ
+    ;ìGÇÃíeä€
+    dim eftamaF,100		;ìGíeä€ÉtÉâÉO
+    dim eftamaX,100		;ìGíeä€â°é≤
+    dim eftamaY,100		;ìGíeä€ècé≤
+    dim eftamaXacc,100  ;ìGíeä€â°é≤â¡ë¨ìx
+    dim eftamaYacc,100	;ìGíeä€ècé≤â¡ë¨ìx
+    ;ìGÇÃîöíe
+    dim ebtamaF,100		;ìGîöíeÉtÉâÉO
+    dim ebtamaX,100		;ìGîöíeâ°é≤
+    dim ebtamaY,100		;ìGîöíeècé≤
+    dim ebtamaH,100		;ìGîöíeëÃóÕ
+    dim ebtamaXacc,100  ;ìGîöíeâ°é≤â¡ë¨ìx
+    dim ebtamaYacc,100  ;ìGîöíeècé≤â¡ë¨ìx
+    dim ebtamaA,100		;îöíeîöî≠ÉAÉjÉÅ
+    ;êÌì¨ã@ÇÃä«óù
+    dim fenemyF,40      ;óLñ≥ÉtÉâÉO
+    dim fenemyX,40      ;ìGã@ÇÃâ°é≤
+    dim fenemyY,40      ;ìGã@ÇÃècé≤
+    dim fenemyA,40		;ìGã@ÇÃà⁄ìÆÉpÉ^Å[Éì
+    dim fenemyP,40		;ìGã@ÇÃçUåÇÉpÉ^Å[Éì
+    dim fenemyQ,40		;ìGã@ÇÃäpìx
+    dim fenemyZ,40      ;ìGã@ÇÃîöî≠ÉJÉEÉìÉ^
+    dim fenemyD,40		;ìGã@ÇÃíeÉtÉâÉO
+    ;é©îöï∫ÇÃä«óù
+    dim kenemyF,40		;óLñ≥ÉtÉâÉO
+    dim kenemyX,40		;ìGã@ÇÃâ°é≤
+    dim kenemyY,40		;ìGã@ÇÃècé≤
+    dim kenemyYacc,40   ;ìGã@ÇÃècé≤â¡ë¨ìx
+    dim kenemyZ,40		;ìGã@ÇÃîöî≠ÉJÉEÉìÉ^
+    ;îöåÇã@ÇÃä«óù
+    dim benemyH,40		;ìGã@HP
+    dim benemyF,40      ;óLñ≥ÉtÉâÉO
+    dim benemyX,40      ;ìGã@ÇÃâ°é≤
+    dim benemyY,40      ;ìGã@ÇÃècé≤
+    dim benemyB,40		;ìGã@ÇÃå¸Ç´
+    dim benemyZ,40      ;ìGã@ÇÃîöî≠ÉJÉEÉìÉ^
+    dim benemyT,40		;ìGã@Ç™ã ÇåÇÇ¡ÇΩÇ©
+	gmode 2
+	//âÊñ èâä˙âª
+	screen 0,480,720
+	width 480,720,300,10
+	title "âFíàêÌëà
+	//ÉXÉRÉAÇÃèâä˙âª
+	score=0
+	ds=3
+	highscore=0
+	;é©ã@ÇÃèâä˙âª
+    fight=3
+    x=0
+    y=630
+    blast=0
+    spead=1
+    demc=700
+    inv=0
+	;í¨ÇÃèâä˙âª
+	repeat 16
+	city(cnt)=2
+	loop
+	
+//-------------------------------
+//ÉÅÉCÉìÉvÉçÉOÉâÉÄ
+//------------------------------
+
+*start
+	redraw 0
+	color:boxf
+	pos 70,30:picload "tit.bmp",1
+	color $FF,$00,$00:font "HGñæí©E",100:pos (600-50*11)/2,100:mes ""
+    color $FF,$FF,$00:font "HGñæí©E",30:pos 130,180:mes ""
+    color $FF,$FF,$FF:font "HGñæí©E",16:pos 190,250:mes "[SPC]ÉLÅ[Ç≈äJén"
+    color $FF,$FF,$FF:font "HGñæí©E",16:pos 190,282:mes "[ESC]ÉLÅ[Ç≈èIóπ"
+	redraw 1
+    repeat
+        stick key
+        if(key & $10):break
+        if(key & $80):end
+        await 20
+    loop
+
+//-----------------------------
+//ÉIÅ[ÉvÉjÉìÉO
+//----------------------------
+*op
+	repeat 70
+	  redraw 0
+	  gosub *backscreen
+	  gosub *towerp
+	  gosub *myfight
+	  x+=3
+	  inv=1
+	  redraw 1
+      await (1000/60)
+	loop
+	inv=0
+//------------------------------
+//ÉÅÉCÉìÉãÅ[Év
+//------------------------------
+*main
+	font MSGOTHIC,50
+    randomize
+    repeat
+        redraw 0
+        stick key,10245
+        gosub *backscreen
+        gosub *cloudbirth
+        gosub *towerp
+        gosub *citygrow
+        gosub *citp
+        gosub *myfight
+		gosub *br
+		gosub *enemym
+		gosub *enemyp
+		gosub *enemyBB
+		gosub *cloud
+		gosub *tamap
+		gosub *enemybirth
+		gosub *enemytamap
+		gosub *enemyatari
+		gosub *enemybaatari
+		;gosub*knenemyb
+		gosub *myatari
+		gosub *enemybatari
+        redraw 1
+        await (1000/60)
+    loop
+    stop
+ 
+//-----------------------
+//ìGã@ÇÃèàóù
+//-----------------------
+*enemym
+	foreach fenemyF
+		if fenemyF(cnt)==1 and fenemyZ(cnt)==0 {
+			if fenemyA(cnt)==0{
+			}
+			if fenemyA(cnt)==1{
+				fenemyX(cnt)+=3
+				fenemyQ(cnt)=6
+				if fenemyP(cnt)==1 and fenemyX(cnt)>150 and fenemyD(cnt)==0{
+					fenemyD(cnt)=1
+					tamaB fenemyX(cnt),fenemyY(cnt)
+				}
+				if fenemyP(cnt)==1 and fenemyX(cnt)>330 and fenemyD(Cnt)==1{
+					fenemyD(Cnt)=2
+					tamaB fenemyX(cnt),fenemyY(Cnt)
+				}
+				if fenemyP(cnt)==6 and fenemyX(cnt)>0 and fenemyD(cnt)==0{
+					fenemyD(cnt)=1
+					fenemyA(cnt)=3
+				}
+			}
+			if fenemyA(cnt)==2{
+				fenemyX(cnt)-=3 
+				fenemyQ(cnt)=2
+				if fenemyP(cnt)==2 and fenemyX(cnt)<240 and fenemyD(cnt)==0{
+					fenemyD(cnt)=1
+					tamaB fenemyX(cnt),fenemyY(cnt)
+				}
+				if fenemyP(cnt)==7 and fenemyX(cnt)<480 and fenemyD(cnt)==0:fenemyA(cnt)=4
+			}
+			if fenemyA(cnt)==3{
+				fenemyX(cnt)+=3
+				fenemyY(cnt)-=3
+				fenemyQ(cnt)=5
+				if fenemyP(cnt)==6 and fenemyX(cnt)>150 and fenemyD(cnt)==1{
+					fenemyD(cnt)=2
+					tamaB fenemyX(cnt),fenemyY(cnt)
+					fenemyA(cnt)=5
+				}
+			}
+			if fenemyA(cnt)==4{
+				fenemyX(cnt)-=3
+				fenemyY(cnt)-=3
+				fenemyQ(cnt)=3
+				if fenemyP(cnt)==7 and fenemyX(cnt)<100 and fenemyD(cnt)==0{
+					fenemyD(cnt)=1
+					tamaB fenemyX(cnt),fenemyY(cnt)
+					fenemyA(cnt)=6
+				}
+			}
+			if fenemyA(cnt)==5{
+				fenemyX(cnt)+=3
+				fenemyY(cnt)+=3
+				fenemyQ(cnt)=7
+				if fenemyP(cnt)==6 and fenemyX(cnt)>300 and fenemyD(cnt)==2{
+					fenemyD(cnt)=3
+					tamaB fenemyX(cnt),fenemyY(cnt)
+					fenemyA(cnt)=1
+				}
+			}
+			if fenemyA(cnt)==6{
+				fenemyX(cnt)-=3
+				fenemyY(cnt)+=3
+				fenemyQ(cnt)=1
+			}
+			if fenemyA(cnt)==7{
+				fenemyY(cnt)+=3
+				fenemyQ(cnt)=0
+				if fenemyP(cnt)==4 and fenemyY(cnt)>360 and fenemyD(cnt)==1{
+					fenemyD(cnt)=2
+					tamaB fenemyX(cnt),fenemyY(cnt)
+					fenemyA(cnt)=6
+				}
+				if fenemyP(cnt)==4 and fenemyY(cnt)>100 and fenemyD(cnt)==0{
+					fenemyD(cnt)=1
+					tamaB fenemyX(cnt),fenemyY(cnt)
+				}
+				if fenemyP(cnt)==5 and fenemyY(cnt)>100 and fenemyD(cnt)==0{
+					fenemyD(cnt)=1
+					tamaB fenemyX(cnt),fenemyY(cnt)
+				}
+				if fenemyP(cnt)==5 and fenemyY(cnt)>360 and fenemyD(cnt)==1{
+					fenemyD(cnt)=2
+					tamaB fenemyX(cnt),fenemyY(cnt)
+					fenemyA(cnt)=5
+				}
+					
+			}
+			if fenemyA(cnt)==8{
+				fenemyY(cnt)-=3 
+				fenemyQ(cnt)=4
+			}	
+		if fenemyX(cnt)<-330 or fenemyX(cnt)>780 or fenemyY(cnt)<-330 or fenemyY(cnt)>1020: fenemyF(cnt)=0
+		}
+	loop
+	q=-1
+	foreach benemyF
+	q+=1
+		if benemyF(cnt)==1{
+			if benemyZ(cnt)==0{
+				if rnd(400)==5 {
+					foreach ebtamaF
+						if ebtamaF(cnt)==0{
+							ebtamaF(cnt)=1
+							ebtamaX(cnt)=benemyX(q)
+							ebtamaY(cnt)=benemyY(q)
+							ebtamaH(cnt)=20
+							ebtamaYacc(cnt)=1
+							ebtamaXacc(cnt)=0
+							ebtamaA(cnt)=0
+							break
+						}
+					loop
+				}
+				if benemyB(cnt)==0{
+					benemyX(cnt)+=2
+				}
+				if benemyB(cnt)==1{
+					benemyX(cnt)-=2
+				}
+			}
+		if benemyX(cnt)<-500 or benemyX(cnt)>980 or benemyY(cnt)<-530 or benemyY(cnt)>1220: benemyF(cnt)=0
+		}
+	loop
+return
+//--------------------- 
+//é©îöï∫
+//---------------------
+*knenemyb
+	if tower <10{
+		enemyc=0
+		foreach kenemyF
+			if kenemyF(cnt)==1{
+			enemyc+=1
+			}
+		loop
+		if enemyc==0{
+			repeat 2
+				foreach kenemyF
+					if kenemyF(cnt)==0{
+					kenemyF(cnt)=1
+					kenemyX(cnt)=rnd(450)
+					kenemyY(cnt)=-30
+					kenemyYacc(cnt)=200+rnd(200)
+					kenemyZ(cnt)=0
+					break
+					}
+				loop
+					
+			loop
+		}
+			
+		
+	
+	}
+//----------------------
+//ìGã@ÇÃíeï\é¶
+//-----------------------
+*enemytamap
+	foreach eftamaF
+		if eftamaF(cnt)==1{
+			pos eftamaX(cnt),eftamaY(cnt)
+			gmode 2
+			gcopy 2,210,60,10,10
+			eftamaX(cnt)+=eftamaXacc(cnt)
+			eftamaY(cnt)+=eftamaYacc(cnt)
+			if eftamaX(cnt)<-530 or eftamaX(cnt)>980 or eftamaY(cnt)<-530 or eftamaY(cnt)>1220: eftamaF(cnt)=0
+		}
+	loop
+	foreach ebtamaF
+		if ebtamaF(cnt)==1{
+			pos ebtamaX(cnt),ebtamaY(cnt)
+			gmode 2
+			gcopy 2,180,60,30,30
+			ebtamaX(cnt)+=ebtamaXacc(cnt)
+			ebtamaY(cnt)+=ebtamaYacc(cnt)
+			if ebtamaX(cnt)<0 or ebtamaX(cnt)>480 or ebtamaY(cnt)<-530 or ebtamaY(cnt)>1220: ebtamaF(cnt)=0
+		}
+	loop
+//-----------------------
+//ìGã@ÇÃï\é¶
+//-----------------------
+*enemyp 
+	foreach fenemyF
+		if fenemyF(cnt)==1{
+			if fenemyZ==0{
+				pos fenemyX(cnt),fenemyY(cnt)
+				gmode 2
+				celput 2,18,1,1,((M_PI/4)*fenemyQ(cnt))
+			}
+			if fenemyZ(cnt)==1{
+				pos fenemyX(cnt),fenemyY(cnt)
+				celput 2,33
+				fenemyF(cnt)=0
+			}
+			if fenemyZ(cnt)==2{
+				pos fenemyX(cnt),fenemyY(cnt)
+				celput 2,34
+				fenemyZ(cnt)=3
+			}
+			if fenemyZ(cnt)==3{
+				pos fenemyX(cnt),fenemyY(cnt)
+				celput 2,35
+				fenemyF(cnt)=0
+			}
+		}
+	loop
+	foreach benemyF
+		if benemyF(cnt)==1{
+			if benemyZ(cnt)==0{
+				pos benemyX(cnt),benemyY(cnt)
+				gmode 2
+				if benemyB(cnt)==1:gcopy 2,30,60,90,30
+				if benemyB(cnt)==0:gcopy 2,30,120,90,30
+			}
+			if benemyZ(cnt)==1{
+				pos benemyX(cnt),benemyY(cnt)
+				gmode 2
+				gcopy 2,0,90,90,30
+				benemyZ(cnt)=2
+			}
+			if benemyZ(cnt)==2{
+				pos benemyX(cnt)+15,benemyY(cnt)
+				gmode 2
+				gcopy 2,90,90,60,30
+				benemyZ(cnt)=3
+			}
+			if benemyZ(cnt)==3{
+				pos benemyX(cnt)+30,benemyY(cnt)
+				gmode 2
+				gcopy 2,150,90,30,30
+				benemyF(cnt)=0
+			}
+			
+		}
+		
+				
+	loop
+	foreach kenemyF
+		if kenemyF(cnt)==1{
+				if kenemyYacc(cnt)<kenemyY(cnt):kenemyZ(cnt)=1
+				if kenemyZ(cnt)==0{
+					kenemyY(cnt)+=1
+					pos kenemyX(cnt),kenemyY(cnt)
+					gmode 2
+					celput 2,26
+				}
+				if kenemyZ(cnt)>0 and kenemyZ(cnt)<60{
+					pos kenemyX(cnt),KenemyY(cnt)
+					gmode 2
+					celput 2,26
+					kenemyZ(cnt)+=1
+				}
+				if kenemyZ(cnt)==20:kenemyF(cnt)=0
+		}
+	loop
+return
+//-----------------------
+//îöåÇã@ÇÃíaê∂
+//-----------------------
+*enemyBB
+	enemyc=0
+	foreach benemyF
+	if benemyF(cnt)==1{
+		enemyc+=1
+	}
+	loop
+	if enemyc==0 and rnd(100)==1{
+		q=0
+			repeat 4
+			q+=1
+			foreach benemyF
+				if benemyF(cnt)==0{
+					benemyB(cnt)=rnd(2)
+					benemyF(cnt)=1
+					if benemyB(cnt)==0:benemyX(cnt)=0-120*q
+					if benemyB(cnt)==1:benemyX(cnt)=480+120*q					
+					benemyY(cnt)=60+rnd(200)
+					benemyT(Cnt)=0
+					benemyZ(cnt)=0
+					break
+				}
+			loop
+			loop
+	}
+return
+//-----------------------
+//ìGã@ÇÃíaê∂
+//-----------------------
+*enemybirth
+	enemyc=0
+	foreach fenemyF
+	if fenemyF(cnt)==1{
+		enemyc+=1
+	}
+	loop
+	if enemyc==0{
+		enemypa=rnd(10)
+		if enemypa==1{
+			q=0
+			repeat 6 
+			q+=1
+			foreach fenemyF
+				if fenemyF(cnt)==0{
+					fenemyF(cnt)=1 
+					fenemyX(cnt)=0-q*40
+					fenemyY(cnt)=320
+					fenemyA(cnt)=1
+					fenemyP(cnt)=1
+					fenemyQ(cnt)=6
+					fenemyZ(cnt)=0
+					fenemyD(cnt)=0
+					break
+				}
+			loop
+			loop
+		}
+		if enemypa==2{
+			q=0
+			repeat 6 
+			q+=1
+			foreach fenemyF
+				if fenemyF(cnt)==0{
+					fenemyF(cnt)=1 
+					fenemyX(cnt)=480+q*40
+					fenemyY(cnt)=420
+					fenemyA(cnt)=2
+					fenemyP(cnt)=2
+					fenemyQ(cnt)=6
+					fenemyZ(cnt)=0
+					fenemyD(cnt)=0
+					break
+				}
+			loop
+			loop
+		}
+		if enemypa==3{
+			
+		}
+		if enemypa==4{
+			q=0
+			repeat 6 
+			q+=1
+			foreach fenemyF
+				if fenemyF(cnt)==0{
+					fenemyF(cnt)=1 
+					fenemyX(cnt)=120
+					fenemyY(cnt)=0-q*40
+					fenemyA(cnt)=7
+					fenemyP(cnt)=4
+					fenemyQ(cnt)=0
+					fenemyZ(cnt)=0
+					fenemyD(cnt)=0
+					break
+				}
+			loop
+			loop
+		}
+		if enemypa==5{
+			q=0
+			repeat 6 
+			q+=1
+			foreach fenemyF
+				if fenemyF(cnt)==0{
+					fenemyF(cnt)=1 
+					fenemyX(cnt)=360
+					fenemyY(cnt)=0-q*40
+					fenemyA(cnt)=7
+					fenemyP(cnt)=5
+					fenemyQ(cnt)=0
+					fenemyZ(cnt)=0
+					fenemyD(cnt)=0
+					break
+				}
+			loop
+			loop
+		}
+		if enemypa==6{
+			q=0
+			repeat 6 
+			q+=1
+			foreach fenemyF
+				if fenemyF(cnt)==0{
+					fenemyF(cnt)=1 
+					fenemyY(cnt)=480
+					fenemyX(cnt)=0-q*40
+					fenemyA(cnt)=1
+					fenemyP(cnt)=6
+					fenemyQ(cnt)=0
+					fenemyZ(cnt)=0
+					fenemyD(cnt)=0
+					break
+				}
+			loop
+			loop
+		}
+		if enemypa==7{
+			q=0
+			repeat 6
+			q+=1
+			foreach fenemyF
+				if fenemyF(cnt)==0{
+					fenemyF(cnt)=1
+					fenemyY(cnt)=480
+					fenemyX(cnt)=480+q*40
+					fenemyA(cnt)=2
+					fenemyP(cnt)=7
+					fenemyZ(cnt)=0
+					fenemyD(cnt)=0
+					break
+				}
+			loop
+			loop
+		}
+	}
+		
+return
+//-----------------------
+//é©ã@ÇÃï\é¶
+//-----------------------
+*myfight
+	if (inv==1){
+		gmode 2
+		repeat 3
+		pos x-30+cnt*30,y-30
+		celput 2,12+cnt
+		loop
+		repeat 2
+		pos x-30+cnt*60,y
+		celput 2,15
+		loop
+		repeat 2
+		pos x-30+cnt*60,y+30
+		celput 2,16+cnt
+		loop
+		pos x,y+30
+		celput 2,13
+	}
+		if (blast==0){
+			cool+=1
+			demc+=1
+			if key&1:x-=spead:if (x<0):x=0
+			if key&4:x+=spead:if (x>450):x=450
+			if key&2048:gosub *tamabirth
+			if key&4096{
+				if demc>200{
+					dem=1:demc=0
+				}
+			}
+			pos x,y:celput 2,1
+		}
+		if (blast==1){
+Å@Å@Å@		gosub *backscreen
+		Å@  gosub *towerp
+			pos x,y:celput 2,32
+			wait 30
+			redraw 1
+			gosub *backscreen
+		Å@  gosub *towerp
+			pos x,y:celput 2,33
+			redraw 1
+			wait 30
+			gosub *backscreen
+		Å@  gosub *towerp
+			pos x,y:celput 2,34
+			redraw 1
+			wait 30
+			fight-=1
+			blast=0
+			gosub *backscreen
+		Å@  gosub *towerp
+			redraw 1
+			wait 30
+			repeat 40
+			kenemyF(cnt)=0
+			benemyF(cnt)=0
+			fenemyF(cnt)=0
+			loop
+			repeat 100
+			eftamaF(cnt)=0
+			ebtamaF(cnt)=0
+			loop
+			foreach ftamaF
+			ftamaF(cnt)=0
+			loop
+			foreach ttamaF
+			ttamaF(cnt)=0
+			loop
+			x=0
+		repeat 70
+		  redraw 0
+		  gosub *backscreen
+		  gosub *towerp
+		  gmode 2
+		repeat 3
+		pos x-30+cnt*30,y-30
+		celput 2,12+cnt
+		loop
+		repeat 2
+		pos x-30+cnt*60,y
+		celput 2,15
+		loop
+		repeat 2
+		pos x-30+cnt*60,y+30
+		celput 2,16+cnt
+		loop
+		pos x,y+30
+		celput 2,13
+		pos x,y:celput 2,1
+		  x+=3
+		  inv=1
+		  redraw 1
+	      await (1000/60)
+		loop
+		inv=0
+		}
+		if (fight==0):goto *gameover
+return
+//-----------------------
+//ÉQÅ[ÉÄÉIÅ[ÉoÅ[
+//-----------------------
+*gameover
+	color 255:boxf 90,510,390,600
+	color:pos 100,520
+	mes "--GAME OVER!!--
+	stop
+//-----------------------
+//é©ã@ÇÃìñÇΩÇËîªíË
+//-----------------------
+*myatari
+	foreach eftamaF
+		if eftamaF(cnt)==1{
+			if abs((x+15)-eftamaX(cnt))<10 and abs((y+15)-eftamaY(cnt))<10:blast=1
+		}
+	loop
+	foreach ebtamaF
+		if ebtamaF(cnt)==1{
+			if abs((x+15)-ebtamaX(cnt))<15 and abs((y+15)-ebtamaY(cnt))<20:blast=1
+		}
+	loop
+return
+//-----------------------
+//ìGã@ÇÃìñÇΩÇËîªíË
+//-----------------------
+*enemyatari
+	q=0
+	foreach fenemyF
+		if fenemyF(cnt)==1 and fenemyZ(cnt)==0{
+			foreach ftamaF
+			if ftamaF(cnt)==1 and fenemyF(q)==1 and abs((fenemyX(q)+15)-(ftamaX(cnt)+(15*ftamaL(Cnt))))<(12+ftamaL(cnt)*12) and abs((fenemyY(q)+15)-ftamaY(cnt))<25{
+				if ftamaL(cnt) == 0 :ftamaF(cnt)=0
+				pos ftamaX(cnt),ftamaY(cnt):celput 2,34:fenemyF(q)=0:break
+			}
+			loop
+			foreach ttamaF
+			if ttamaF(cnt)==1 and abs((fenemyX(q)+15)-ttamaX(cnt))<10 and abs((fenemyY(q)+15)-ttamaY(cnt))<10:ttamaF(cnt)=0:pos ttamaX(cnt),ttamaY(cnt):celput 2,34:fenemyF(q)=0:break
+			loop
+		}
+	q+=1
+	loop
+	
+return
+//--------------------------
+//ìGîöåÇã@ìñÇΩÇËîªíË
+//--------------------------
+*enemybaatari
+	q=0
+	foreach benemyF
+		if benemyF(cnt)==1 and benemyZ(cnt)==0{
+			foreach ftamaF
+			if ftamaF(cnt)==1 and benemyF(q)==1 and abs((benemyX(q)+15)-(ftamaX(cnt)+(15*ftamaL(Cnt))))<(35+ftamaL(cnt)*12) and abs((benemyY(q)+15)-ftamaY(cnt))<25{
+				if ftamaL(cnt) == 0 :ftamaF(cnt)=0
+				pos ftamaX(cnt),ftamaY(cnt):celput 2,34:benemyF(q)=0:break
+			}
+			loop
+			foreach ttamaF
+			if ttamaF(cnt)==1 and abs((benemyX(q)+15)-ttamaX(cnt))<25 and abs((benemyY(q)+15)-ttamaY(cnt))<10:ttamaF(cnt)=0:pos ttamaX(cnt),ttamaY(cnt):celput 2,34:benemyF(q)=0:break
+			loop
+		}
+	q+=1
+	loop
+	return
+//-----------------------
+//îöåÇíeÇÃìñÇΩÇËîªíË
+//-----------------------
+*enemybatari
+//	q=0
+	foreach ebtamaF
+		if ebtamaF(cnt)==1 and ebtamaY(cnt)>660{
+			ppppp=(ebtamaX(Cnt)/30)
+			if (ebtamaX(cnt)\30)>15:ppppp+=1
+			cityb(ppppp)=1
+			city(ppppp)=2
+			ebtamaF(cnt)=0
+		}
+	loop
+	q=0
+	foreach ebtamaF
+		if ebtamaF(cnt)==1 {
+			foreach ftamaF
+			if ftamaF(cnt)==1 and ebtamaF(q)==1 and abs((ebtamaX(q)+15)-(ftamaX(cnt)+(15*ftamaL(Cnt))))<(12+ftamaL(cnt)*12) and abs((ebtamaY(q)+15)-ftamaY(cnt))<25{
+				if ftamaL(cnt) == 0 :ftamaF(cnt)=0
+				pos ftamaX(cnt),ftamaY(cnt):celput 2,34:ebtamaF(q)=0:break
+			}
+			loop
+			foreach ttamaF
+			if ttamaF(cnt)==1 and abs((ebtamaX(q)+15)-ttamaX(cnt))<10 and abs((ebtamaY(q)+15)-ttamaY(cnt))<10:ttamaF(cnt)=0:pos ttamaX(cnt),ttamaY(cnt):celput 2,34:ebtamaF(q)=0:break
+			loop
+		}
+	q+=1
+	loop
+return
+//-----------------------
+//íeÇÃê∂ê¨
+//-----------------------
+*tamabirth
+	if cool>sgans{
+		cool=0
+		if mgan==0{
+			foreach ftamaF
+					if ftamaF(cnt)==0{
+						ftamaF(cnt)=1
+						ftamaL(cnt)=0
+						ftamaX(cnt)=x-5
+						ftamaY(cnt)=y
+						ftamaXacc(cnt)=0
+						ftamaYacc(cnt)=-8
+						ftamaB(cnt)=0
+						break
+					}
+			loop
+			foreach ftamaF
+					if ftamaF(cnt)==0{
+						ftamaF(cnt)=1
+						ftamaL(cnt)=0
+						ftamaX(cnt)=x+35
+						ftamaY(cnt)=y
+						ftamaXacc(cnt)=0
+						ftamaYacc(cnt)=-8
+						ftamaB(cnt)=0
+						break
+					}
+			loop
+		}
+		if mgan==1{	
+			foreach ftamaF
+				if ftamaF(cnt)==0{
+					ftamaF(cnt)=1
+					ftamaL(cnt)=1
+					ftamaX(cnt)=x
+					ftamaY(cnt)=y
+					ftamaXacc(cnt)=0
+					ftamaYacc(cnt)=-12
+					ftamaB(cnt)=0
+					break
+				}
+			loop
+		}
+		if mgan==2{
+				foreach ftamaF
+					if ftamaF(cnt)==0{
+						ftamaF(cnt)=1
+						ftamaL(cnt)=2
+						ftamaX(cnt)=x-15
+						ftamaY(cnt)=y
+						ftamaXacc(cnt)=0
+						ftamaYacc(cnt)=-12
+						ftamaB(cnt)=0
+						break
+					}
+			loop
+		}
+		if mgan>2{
+			foreach ftamaF
+				if ftamaF(cnt)==0{
+					ftamaF(cnt)=1
+					ftamaL(cnt)=3
+					ftamaX(cnt)=x-30
+					ftamaY(cnt)=y
+					ftamaXacc(cnt)=0
+					ftamaYacc(cnt)=-15
+					ttamaB(cnt)=0
+					break
+				}
+			loop
+		}
+		if sgan>1{
+			foreach ttamaF
+				if ttamaF(cnt)==0{
+					ttamaF(cnt)=1
+					ttamaL(cnt)=1
+					ttamaX(cnt)=x+15
+					ttamaY(cnt)=y
+					ttamaXacc(cnt)=-1
+					ttamaYacc(cnt)=-20
+					ttamaB(cnt)=0
+					break
+				}
+			loop
+						foreach ttamaF
+				if ttamaF(cnt)==0{
+					ttamaF(cnt)=1
+					ttamaL(cnt)=1
+					ttamaX(cnt)=x+15
+					ttamaY(cnt)=y
+					ttamaXacc(cnt)=1
+					ttamaYacc(cnt)=-20
+					ttamaB(cnt)=0
+					break
+				}
+			loop
+		}
+		if sgan>2{
+			foreach ttamaF
+				if ttamaF(cnt)==0{
+					ttamaF(cnt)=1
+					ttamaL(cnt)=1
+					ttamaX(cnt)=x+15
+					ttamaY(cnt)=y
+					ttamaXacc(cnt)=1
+					ttamaYacc(cnt)=-10
+					ttamaB(cnt)=0
+					break
+				}
+			loop
+			foreach ttamaF
+				if ttamaF(cnt)==0{
+					ttamaF(cnt)=1
+					ttamaL(cnt)=1
+					ttamaX(cnt)=x-15
+					ttamaY(cnt)=y
+					ttamaXacc(cnt)=-1
+					ttamaYacc(cnt)=-10
+					ttamaB(cnt)=0
+					break
+				}
+			loop
+		}
+				
+					
+	}
+return
+//-----------------------
+//íeÇÃï\é¶
+//-----------------------
+*tamap
+	foreach ftamaF
+		if ftamaF(cnt)==0:continue
+		if ftamaF(cnt)==1{
+			if ftamaB(cnt)==0{	
+				ftamaX(cnt)+=ftamaXacc(cnt)
+				ftamaY(cnt)+=ftamaYacc(cnt)
+				if ftamaX(cnt)<0 or ftamaX(cnt)>480:ftamaF(cnt)=0
+				if ftamaY(cnt)<0 or ftamaY(cnt)>720:ftamaF(cnt)=0
+				pos ftamaX(cnt),ftamaY(cnt)
+				if ftamaL(cnt)==0: gmode 2:gcopy 2,60,0,10,10
+				if ftamaL(cnt)==1: gmode 2:gcopy 2,90,0,30,30
+				if ftamaL(cnt)==2: gmode 2:gcopy 2,120,0,60,30
+				if ftamaL(cnt)==3: gmode 2:gcopy 2,210,0,90,30
+			}
+			if ftamaB(cnt)==1{
+				gmode 2
+				pos ftamaX(cnt),ftamaY(cnt)
+				celput 2,33
+				ftamaB(cnt)=2
+			}
+			if ftamaB(cnt)==2{
+				gmode 2
+				pos ftamaX(cnt),ftamaY(cnt)
+				celput 2,34
+				ftamaB(cnt)=3
+			}
+			if ftamaB(cnt)==3{
+				gmode 2
+				pos ftamaX(cnt),ftamaY(cnt)
+				celput 2,35
+				ftamaF(cnt)=0
+			}
+
+				
+		}
+			
+	loop
+		foreach ttamaF
+		if ttamaF(cnt)==0:continue
+		if ttamaF(cnt)==1{
+			if ttamaB(cnt)==0{
+				ttamaX(cnt)+=ttamaXacc(cnt)
+				ttamaY(cnt)+=ttamaYacc(cnt)
+				if ttamaX(cnt)<0 or ttamaX(cnt)>480:ttamaF(cnt)=0
+				if ttamaY(cnt)<0 or ttamaY(cnt)>720:ttamaF(cnt)=0
+				pos ttamaX(cnt),ttamaY(cnt)
+				gmode 2:gcopy 2,60,10,10,10
+			}
+				if ttamaB(cnt)==1{
+					gmode 2
+					pos ttamaX(cnt),ttamaY(cnt)
+					celput 2,34
+					ttamaB(cnt)=2
+				}
+				}
+				if ttamaB(cnt)==2{
+					gmode 2
+					pos ftamaX(cnt),ftamaY(cnt)
+					celput 2,35
+					ftamaF(cnt)=0
+				}
+		
+			
+	loop
+return
+//-----------------------
+//éÊÇËâÛÇµ
+//-----------------------
+*br
+	if dem==0{
+		inv=0
+	}else{
+		inv=1
+		if dem<30{
+			pos x,y+30
+			gmode 2
+			celput 2,9
+			dem+=1
+		}
+		if dem<40 and dem>29{
+			pos x,y+30
+			gmode 2
+			celput 2,10
+			dem+=1
+		}
+		if dem>39{
+			pos x,y+30
+			gmode 2
+			celput 2,11
+			dem=0
+			ppppp=(x/30)
+			if (x\30)>15:ppppp+=1
+			cityb(ppppp)=1
+			city(ppppp)=2
+		}
+	}
+	
+return
+//-----------------------
+//îwåiï`âÊ
+//-----------------------
+*backscreen
+	color:boxf
+		repeat 16
+		pos cnt*30,690
+		celput 1,1
+		pos cnt*30,660
+		celput 1,city(cnt)
+		if cityb(cnt)>0 and cityb(cnt)<10:pos cnt*30,660:celput 1,11:cityb(cnt)+=1
+		if cityb(cnt)==9:pos cnt*30,660:celput 1,12:cityb(cnt)=0
+		pos cnt*30,600
+		celput 1,13
+		pos cnt*30,570
+		celput 1,14
+		pos cnt*30,540
+		celput 1,15
+		pos cnt*30,510 
+		celput 1,2
+		loop
+		pos 300,100
+		gcopy 4,0,0,500,500
+return
+//-------------------------
+//ìÉÇÃï`âÊ
+//-------------------------
+*towerp
+	ds=3
+	repeat
+		if tower>50*cnt{
+			ds+=1
+		}else{
+			break
+		}
+	loop
+	repeat 17
+		if tower>10*cnt{
+			if cnt<5:towerB 5,510-cnt*30
+			if cnt>4 and cnt<11:towerB 3,510-cnt*30
+			if cnt>10 and cnt<16:towerB 1,510-cnt*30
+		}else{
+			if cnt<5:towerB 6,510-cnt*30
+			if cnt>4 and cnt<11:towerB 7,510-cnt*30
+			if cnt>10 and cnt<16:towerB 8,510-cnt*30
+			break
+		}
+	loop
+return
+//-------------------
+//â_ÇÃï`âÊ
+//-------------------
+*cloud
+	foreach skyF
+		if skyF(cnt)==0:continue
+		if skyF(cnt)==1{
+			if skyB(cnt)==0{
+				skyX(cnt)+=1
+				if skyX(cnt)>480:skyF(cnt)=0
+				pos skyX(cnt),skyY(cnt)
+				gmode 2
+				gcopy 6,0,0,200,200
+			}
+			if skyB(cnt)==1{
+				skyX(cnt)-=1
+				if skyX(cnt)<-130:skyF(cnt)=0
+				pos skyX(cnt),skyY(cnt)
+				gmode 2
+				gcopy 5,0,0,200,200
+			}
+		}
+	loop	
+return
+//-----------------
+//â_ÇÃê∂ê¨
+//-----------------
+*cloudbirth
+	if rnd(300)=1{
+		foreach skyF
+			if skyF(cnt)==0{
+				skyF(cnt)=1
+				ppp=rnd(2)
+				skyB(cnt)=ppp
+				skyY(cnt)=rnd(400)+150
+				if ppp=0:skyX(cnt)=-200
+				if ppp=1:skyX(cnt)=500
+				break
+			}
+		loop
+	}
+return
+//----------------
+//ñØä‘êlï\é¶
+//----------------
+*citp
+	foreach citizenF
+		if citizenF(cnt)==0:continue
+		if citizenF(cnt)==1{
+			pos citizenX(cnt),citizenY(cnt)
+			gmode 2
+			celput 2,36
+			citizenA(cnt)+=1
+			if citizenY(cnt)>650{
+				if citizenY(cnt)>690{
+					if citizenX(cnt)<240{
+						citizenX(cnt)-=1
+						if citizenX(cnt)<-30{
+							citizenY(cnt)=510
+						}
+					}else{
+						citizenX(cnt)+=1
+						if citizenX(cnt)>480{
+							citizenY(cnt)=510
+						}
+					}
+				}else{
+					citizenY(cnt)+=1
+				}
+			}else{
+				if citizenX(cnt)>209 and citizenX(cnt)<241{
+					citizenF(cnt)=0
+					tower+=1
+				}
+				if citizenX(cnt)<210{
+					citizenX(cnt)+=1
+			}else{
+				if citizenX(cnt)>240{
+					citizenX(cnt)-=1
+				}
+			}
+		}
+		}
+	loop
+return
+//---------------
+//í¨ÇÃèàóù
+//---------------
+*citygrow
+	spead=1
+	mgan=0
+	sgan=0
+	sgans=128
+	ppppp=0
+	if tower>510:goto *hend
+	foreach city
+	if city(cnt)==2{
+		r=rnd(1600)
+		if r==1 or r==3 :city(cnt)=4
+		if r==2:city(cnt)=3
+	}
+	if city(cnt)==4{
+		r=rnd(1000)
+		if r==1:city(cnt)=5
+	}
+	if city(cnt)==5{
+		r=rnd(7000)
+		if r==1:city(cnt)=6
+		if r==2:city(cnt)=7
+		if r==3:city(cnt)=8
+		if r==4:city(cnt)=9
+		if r==5:city(cnt)=10
+		if r==6:city(cnt)=4
+	}
+	if city(cnt)==6{
+		r=rnd(200)
+		if r==1{
+			foreach citizenF
+			if citizenF(cnt)==0{
+				citizenF(cnt)=1
+				citizenY(cnt)=660
+				citizenA(cnt)=0
+				citizenX(cnt)=ppppp*30
+				break
+			}
+			loop	
+		}
+	}
+	if city(cnt)=7:mgan+=1
+	if city(cnt)=8:sgans=sgans/2
+	if city(cnt)=9:spead+=1
+	if city(cnt)=10:sgan+=1
+	ppppp+=1
+	loop
+return
+//-------------------
+//íeî≠éÀ
+//-------------------
+#deffunc tamaB int p1,int p2
+	foreach eftamaF
+		if eftamaF(cnt)==0{
+			 eftamaF(cnt)=1
+			 eftamaX(cnt)=p1
+			 eftamaY(cnt)=p2
+			kkd=atan(y-p2, x-p1) ;ìGÇ∆é©ã@Ç∆ÇÃäpìxÇãÅÇﬂÇÈ
+			eftamaXacc(cnt)= cos(kkd)*ds
+			eftamaYacc(cnt)=sin(kkd)*ds
+			break
+		} 
+	loop
+	foreach eftamaF
+		if eftamaF(cnt)==0{
+			 eftamaF(cnt)=1
+			 eftamaX(cnt)=p1
+			 eftamaY(cnt)=p2
+			kkd=atan(y-p2, x-p1) ;ìGÇ∆é©ã@Ç∆ÇÃäpìxÇãÅÇﬂÇÈ
+			eftamaXacc(cnt)= cos(kkd)*ds+1
+			eftamaYacc(cnt)=sin(kkd)*ds
+			break
+		} 
+	loop
+	foreach eftamaF
+		if eftamaF(cnt)==0{
+			 eftamaF(cnt)=1
+			 eftamaX(cnt)=p1
+			 eftamaY(cnt)=p2
+			kkd=atan(y-p2, x-p1) ;ìGÇ∆é©ã@Ç∆ÇÃäpìxÇãÅÇﬂÇÈ
+			eftamaXacc(cnt)= cos(kkd)*ds-1
+			eftamaYacc(cnt)=sin(kkd)*ds
+			break
+		} 
+	loop
+return
+//-------------------
+//ìÉÇÃãLèq
+//------------------
+#deffunc towerB int p1,int p2
+if p1==5{
+	repeat 5
+	pos cnt*30+150,p2
+	celput 1,16
+	loop
+	pos 210,p2
+	celput 1,17
+}
+if p1==3{
+	repeat 3
+	pos cnt*30+180,p2
+	celput 1,16
+	loop
+	pos 210,p2
+	celput 1,17
+}
+if p1==1{
+	pos 180,p2
+	celput 1,24
+	pos 210,p2
+	celput 1,17
+	pos 240,p2
+	celput 1,25
+}
+if p1==6{
+	repeat 5
+	pos cnt*30+150,p2
+	celput 1,34
+	loop
+}
+if p1==7{
+	repeat 3
+	pos cnt*30+180,p2
+	celput 1,34
+	loop
+}
+if p1==8{
+	pos 210,p2
+	celput 1,34
+}
+
+return
+*hend
+	wait 200
+	repeat 255
+		color cnt,cnt,cnt
+		boxf
+	loop
+	color 255,255,0
+	pos 20,20
+	mes "---ãMï˚ÇÕâFíàêÌëàÇ…èüÇøÇ‹ÇµÇΩ---
+	mes "ãMï˚ÇÃñºÇÕâiâìÇ…ãLâØÇ≥ÇÍÇÈÇ≈ÇµÇÂÇ§
+	mes "thank you 
+	stop
